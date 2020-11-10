@@ -9,18 +9,12 @@ module registers(	input clock,
 						
 	reg [63:0] regs [0:31];
 	
-	// assign rd1 = !regWrite ? regs[rs1] : 64'b0;
-	// assign rd2 = !regWrite ? regs[rs2] : 64'b0;
-	
-	always@(negedge clock) begin
-		rd1 <= regs[rs1];
-		rd2 <= regs[rs2];
-	end
-	
 	always@(posedge clock) begin
 		if(regWrite) begin
 			regs[wr] <= wdata;
 		end
+		rd1 <= regs[rs1];
+		rd2 <= regs[rs2];
 	end
 	
 endmodule

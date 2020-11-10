@@ -6,7 +6,7 @@ module dataMemory(  input clk,
 					output[63:0] read_data);
 
 	reg [7:0] memory [511:0];
-
+/*
 	assign read_data[7:0] = memory[address];
 	assign read_data[15:8] = memory[address + 1];
 	assign read_data[23:16] = memory[address + 2];
@@ -15,6 +15,7 @@ module dataMemory(  input clk,
 	assign read_data[47:40] = memory[address + 5];
 	assign read_data[55:48] = memory[address + 6];
 	assign read_data[63:56] = memory[address + 7];
+	*/
 	always @(posedge clk) begin
 		if (mem_write == 1) begin
 			memory[address] <= write_data[7:0];
