@@ -1,4 +1,6 @@
 module TP_03(	input clk,
+				input enable,
+				input reset,
 				output zero);
 
 	wire [63:0] pc_value, new_pc_value, write_back;
@@ -16,7 +18,7 @@ module TP_03(	input clk,
 	assign enPc = stateIF;
 	assign enProgMemory = stateIF;
 	assign enReg = stateID;
-	
+
 	aluADD aluPC(pc_value, 4, new_pc_value);
 	progCounter PC(clk, enPc, new_pc_value, pc_value);
 	progMemory PM(clk, enProgMemory, pc_value, instruction);
@@ -25,5 +27,5 @@ module TP_03(	input clk,
 	dataMemory DM(clk, enMemRead, enMemWrite, alu_result, rd2, read_data);
 	mux2x1 M1(read_data, alu_result, memToReg, write_back);
 	control ctrl(instruction[6:0], branch, memRead, memToReg, aluOp, memWrite, aluSrc, regWrite);
-
+	rfsm RFSM(clk, enable, reset, stateIF, stateID, stateEXE, stateMEM, stateWB);
 endmodule
