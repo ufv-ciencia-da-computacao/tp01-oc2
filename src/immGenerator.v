@@ -3,20 +3,21 @@ module immGenerator(
              output reg [63:0] immediate);
 
     integer i;
-
-	initial begin
-		for (i = 0 ; i <= 63; i = i + 1) immediate[i] = 0;
-	end
 	
 	always @ (*)
 	begin
-    	if(instruction[6:0] == 7'b0000011)
-			assign immediate[11:0] = instruction[31:20];
-
-		if(instruction[6:0]== 7'b0100011)
-		begin
-        	assign immediate[11:5] = instruction[31:25];
-        	assign immediate[4:0] = instruction[11:7];
+	
+	case(instruction[6:0])
+		7'b0000011 : immediate[11:0] = instruction[31:20];
+		7'b0100011 : begin
+			immediate[11:5] = instruction[31:25];
+        	immediate[4:0] = instruction[11:7];
 		end
+		default:immediate[63:0]=0;
+		endcase
+		
+		for (i = 12 ; i < 64; i = i + 1)
+             immediate[i] = instruction[31];
+				
 	end
 endmodule
