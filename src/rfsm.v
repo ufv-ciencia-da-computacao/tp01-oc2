@@ -7,37 +7,37 @@ module rfsm(input clk,
 			output reg stateMEM,
 			output reg stateWB);
 
-	localparam[2:0] S_RESET = 3'b000,
-		            S_IF = 3'b001,
-		            S_ID = 3'b010,
-		            S_EXE = 3'b011,
-		            S_MEM = 3'b100,
-		            S_WB = 3'b101;
+	localparam[4:0] S_RESET = 5'b00000,
+		            S_IF 		= 5'b10000,
+		            S_ID 		= 5'b01000,
+		            S_EXE 	= 5'b00100,
+		            S_MEM 	= 5'b00010,
+		            S_WB 		= 5'b00001;
 
-	reg[2:0] state, next_state;
+	reg[4:0] state, next_state;
 
 	always @(posedge clk) begin
-    	if(enable) state = next_state;
+    	if(enable) state <= next_state;
   	end
 
 	always @ (state or reset) begin
-    	if(reset) next_state = S_RESET;
+    	if(reset) next_state <= S_RESET;
 		else begin
 			case(state)
 				S_RESET:
-					next_state = S_IF;
+					next_state <= S_IF;
 				S_IF:
-					next_state = S_ID;
+					next_state <= S_ID;
 				S_ID:
-					next_state = S_EXE;
+					next_state <= S_EXE;
 				S_EXE:
-					next_state = S_MEM;
+					next_state <= S_MEM;
 				S_MEM:
-					next_state = S_WB;
+					next_state <= S_WB;
 				S_WB:
-					next_state = S_ID;
+					next_state <= S_ID;
 				default:
-					next_state = S_RESET;
+					next_state <= S_RESET;
 			endcase
 		end
 	end

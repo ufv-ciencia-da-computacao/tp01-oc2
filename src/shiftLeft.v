@@ -3,8 +3,8 @@ module shiftLeft(    input [63:0] dataIn,
     integer i;
 
     initial begin
-        assign dataOut[0] = 0;
+        dataOut[0] = 0;
         for (i = 62 ; i >= 0; i = i - 1)
-            assign dataOut[i+1] = dataIn[i];
+            dataOut[i+1] = dataIn[i];
     end
 endmodule
