@@ -4,7 +4,8 @@ module progMemory(input [63:0] address,
 	reg [31:0] memory [127:0];
 	
 	initial begin
-		$readmemb("saida", memory);
+		$readmemb("inputs/instructions", memory);
+		// memory[0] = 32'b00000000001000000000000010110011;
 	end
 	
 	assign value = memory[address[63:2]];

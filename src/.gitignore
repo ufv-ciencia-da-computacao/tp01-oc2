@@ -4,3 +4,4 @@
 #except .v files
 !*.v
 !.gitignore
+!inputs/

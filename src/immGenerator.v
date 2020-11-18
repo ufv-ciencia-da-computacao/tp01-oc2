@@ -4,16 +4,16 @@ module immGenerator(
 
     integer i;
 	
-	always @ (*)
-	begin
+	always @(*) begin
 	
-	case(instruction[6:0])
-		7'b0000011 : immediate[11:0] = instruction[31:20];
-		7'b0100011 : begin
-			immediate[11:5] = instruction[31:25];
-        	immediate[4:0] = instruction[11:7];
-		end
-		default:immediate[63:0]=0;
+		case(instruction[6:0])
+			7'b0000011 : immediate[11:0] = instruction[31:20];
+			7'b0100011 : 
+				begin
+					immediate[11:5] = instruction[31:25];
+					immediate[4:0] = instruction[11:7];
+				end
+			default:immediate[63:0]=0;
 		endcase
 		
 		for (i = 12 ; i < 64; i = i + 1)

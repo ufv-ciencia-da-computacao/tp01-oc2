@@ -1,9 +1,11 @@
 module progCounter(	input clock,
+							input reset,
 							input [63:0] next,
-							output reg [63:0] value);
-
+							output reg [63:0] value);				
+	
 	always@(posedge clock) begin
-		value <= next;
+		if(reset) value <= 0;
+		else value <= next;
 	end
 							
 endmodule

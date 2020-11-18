@@ -7,12 +7,16 @@ module registers(	input clock,
 						output [63:0] rd1,
 						output [63:0] rd2);
 						
-	reg [63:0] regs [0:31];
+	reg [63:0] regs [31:0];
 	assign rd1 = regs[rs1];
 	assign rd2 = regs[rs2];
 	
+	initial begin
+		$readmemb("inputs/registers", regs);
+	end
+	
 	always @(posedge clock) begin
-		if(regWrite) begin
+		if(regWrite == 1 && wr != 0) begin
 			regs[wr] <= wdata;
 		end
 	end
