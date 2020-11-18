@@ -2,7 +2,7 @@ module TP_03(	input systemClock,
 				input reset,
 				output clk,
 				output zero,
-				output [31:0] inst,
+				output [63:0] pc,
 				output [63:0] alures);
 
 	wire [63:0] pc_value, new_pc_value, pc_plus_4, pc_plus_imm, write_back, immediate, immShifted, aluRd2;
@@ -15,7 +15,8 @@ module TP_03(	input systemClock,
 	// wire clk;
 	
 	assign alures = alu_result;
-	assign inst = instruction;
+	assign pc = pc_value;
+	
 	assign pcSrc = zero & branch;
 	
 	clockDivider clkDiv(systemClock, clk);

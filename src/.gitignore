@@ -5,3 +5,4 @@
 !*.v
 !.gitignore
 !inputs/
+!inputs/*
