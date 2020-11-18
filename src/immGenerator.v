@@ -13,6 +13,12 @@ module immGenerator(
 					immediate[11:5] = instruction[31:25];
 					immediate[4:0] = instruction[11:7];
 				end
+			7'b1100111 : begin
+					immediate[11] = instruction[31];
+					immediate[10:5] = instruction[30:25];
+					immediate[4:1] = instruction[11:8];
+					immediate[0] = instruction[7];
+			end
 			default:immediate[63:0]=0;
 		endcase
 		
