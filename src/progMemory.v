@@ -5,12 +5,8 @@ module progMemory(input [63:0] address,
 	
 	initial begin
 		$readmemb("inputs/instructions", memory);
-		// memory[0] = 32'b00000000001000000000000010110011;
 	end
 	
 	assign value = memory[address[63:2]];
-	// assign value[15:8] = memory[address+1];
-	// assign value[23:16] = memory[address+2];
-	// assign value[31:24] = memory[address+3];
 	
 endmodule

@@ -1,9 +1,19 @@
+`include "mux2x1.v"
+`include "control.v"
+`include "aluControl.v"
+`include "immGenerator.v"
+`include "shiftLeft.v"
+`include "alu.v"
+`include "clockDivider.v"
+`include "progCounter.v"
+`include "progMemory.v"
+`include "aluADD.v"
+`include "registers.v"
+`include "dataMemory.v"
+
+
 module TP_03(	input systemClock,
-				input reset,
-				output clk,
-				output zero,
-				output [63:0] pc,
-				output [63:0] alures);
+				input reset);
 
 	wire [63:0] pc_value, new_pc_value, pc_plus_4, pc_plus_imm, write_back, immediate, immShifted, aluRd2;
 	wire [31:0] instruction;
@@ -12,10 +22,7 @@ module TP_03(	input systemClock,
 	wire [3:0] aluCtrlOp;
 	wire pcSrc;
 	wire branch, memRead, memToReg, memWrite, aluSrc, regWrite;
-	// wire clk;
-	
-	assign alures = alu_result;
-	assign pc = pc_value;
+	wire clk, zero;
 	
 	assign pcSrc = zero & branch;
 	
@@ -31,9 +38,7 @@ module TP_03(	input systemClock,
 	mux2x1 aluMux(rd2, immediate, aluSrc, aluRd2);
 	aluControl aluCtrl(aluOperation, instruction[31:25], instruction[14:12], aluCtrlOp);
 	alu aluMain(rd1, aluRd2, aluCtrlOp, zero, alu_result);
-	// reg64 aluBuff(clk, enAlu, alu_result, alu_result_buff);
 	dataMemory DM(clk, memRead, memWrite, alu_result, rd2, read_data);
 	mux2x1 wbMux(alu_result, read_data, memToReg, write_back);
 	control ctrl(instruction[6:0], branch, memRead, memToReg, aluOperation, memWrite, aluSrc, regWrite);
-	// rfsm RFSM(clk, enable, reset, stateIF, stateID, stateEXE, stateMEM, stateWB);
 endmodule

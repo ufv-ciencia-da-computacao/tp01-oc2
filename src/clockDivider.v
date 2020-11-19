@@ -3,7 +3,7 @@ module clockDivider(	input clockIn,
 
 	reg [3:0] counter;
 	
-	assign clockOut = counter[3];
+	assign clockOut = counter[2];
 	
 	always @(posedge clockIn) begin
 		counter <= counter + 4'd1;
