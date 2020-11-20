@@ -16,6 +16,9 @@ module testbench();
 		for(i=0; i<64; i=i+1) begin
 			$dumpvars(2, riscv.DM.memory[i]);
 		end
+        for(i=0; i<32; i=i+1) begin
+			$dumpvars(2, riscv.regs.regs[i]);
+		end
 		#300000 $finish;
 	end
 
