@@ -14,7 +14,7 @@ Na imagem abaixo temos um vetor de números inteiros de 6 posições iniciando a
 
 ## Documentação
 
-Queer entender um pouco mais sobre como isso foi feito? Dê uma olhada aqui primeiro: [Documentação](https://www.overleaf.com/read/txffpzyxjzhy)
+Quer entender um pouco mais sobre como isso foi feito? Dê uma olhada aqui primeiro: [Documentação](https://www.overleaf.com/read/txffpzyxjzhy)
 
 ## Algoritmo utilizado no exemplo acima - Bubble Sort
 
