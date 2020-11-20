@@ -16,7 +16,7 @@ module testbench();
 		for(i=0; i<64; i=i+1) begin
 			$dumpvars(2, riscv.DM.memory[i]);
 		end
-		#5000 $finish;
+		#300000 $finish;
 	end
 
   always #10 clock = ~clock;

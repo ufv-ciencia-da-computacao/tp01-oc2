@@ -3,6 +3,10 @@ module clockDivider(	input clockIn,
 
 	reg [3:0] counter;
 	
+	initial begin
+		counter = 0;
+	end
+	
 	assign clockOut = counter[2];
 	
 	always @(posedge clockIn) begin
