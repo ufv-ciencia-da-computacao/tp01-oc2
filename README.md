@@ -2,7 +2,7 @@
 
 Na imagem abaixo temos um vetor de números inteiros de 6 posições iniciando a partir da posição 1 da memória. Note que inicialmente os valores estão espalhados de forma aleatória (5, 3, 7, 1, -1, 0), mas por fim, estão ordenados em forma crescente (-1, 0, 1, 3, 5, 7).
 
-![Bubble Sort](./docs/bubble-sort-cut.PNG)
+![Bubble Sort](./docs/bubble-sort-cut.png)
 
 ## Integrantes do grupo
 
