@@ -17,7 +17,7 @@ module TP_03(	input systemClock,
 
 	wire [63:0] pc_value, new_pc_value, pc_plus_4, pc_plus_imm, write_back, immediate, immShifted, aluRd2;
 	wire [31:0] instruction;
-	wire [63:0] rd1, rd2, alu_result, read_data, alu_result_buff;
+	wire [63:0] rd1, rd2, alu_result, read_data;
 	wire [1:0] aluOperation;
 	wire [3:0] aluCtrlOp;
 	wire pcSrc;
