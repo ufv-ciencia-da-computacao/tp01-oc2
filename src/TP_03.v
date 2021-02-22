@@ -11,34 +11,50 @@
 `include "registers.v"
 `include "dataMemory.v"
 
+`include "forwardingUnit.v"
+`include "hazardDetectionUnit.v"
+`include "mux2x1Control.v"
+`include "mux3x1.v"
+`include "pipeline_regs/ex_mem_register.v"
+`include "pipeline_regs/id_ex_register.v"
+`include "pipeline_regs/if_id_register.v"
+`include "pipeline_regs/mem_wb_register.v"
+
 
 module TP_03(	input systemClock,
 				input reset);
 
-	wire [63:0] pc_value, new_pc_value, pc_plus_4, pc_plus_imm, write_back, immediate, immShifted, aluRd2;
-	wire [31:0] instruction;
-	wire [63:0] rd1, rd2, alu_result, read_data;
-	wire [1:0] aluOperation;
-	wire [3:0] aluCtrlOp;
-	wire pcSrc;
-	wire branch, memRead, memToReg, memWrite, aluSrc, regWrite;
-	wire clk, zero;
+	aluADD 						aluPcPlus4();
+	mux2x1 						pcMux();
+	progCounter 				PC();
+	progMemory 					PM();
+	if_id_register				if_id();
+
+	registers 					regs();
+	immGenerator 				ig();
+	control 					ctrl();
+	mux2x1Control				mControl();
+	id_ex_register				id_ex();
+
+
+	shiftLeft 					sl();
+	mux3x1						mux1();
+	mux3x1						mux2();
+	mux2x1 						aluMux();
+	aluControl 					aluCtrl();
+	aluADD 						aluPcPlusImm();
+	alu 						aluMain();
+	ex_mem_register				ex_mem();
 	
-	assign pcSrc = zero & branch;
+
+	dataMemory 					DM();
+	mem_wb_register				mem_wb();
+	mux2x1 						wbMux();
 	
-	clockDivider clkDiv(systemClock, clk);
-	aluADD aluPcPlus4(pc_value, 64'd4, pc_plus_4);
-	aluADD aluPcPlusImm(pc_value, immShifted, pc_plus_imm);
-	mux2x1 pcMux(pc_plus_4, pc_plus_imm, pcSrc, new_pc_value);
-	progCounter PC(clk, reset, new_pc_value, pc_value);
-	progMemory PM(pc_value, instruction);
-	immGenerator ig(instruction, immediate);
-	shiftLeft sl(immediate, immShifted);
-	registers regs(clk, regWrite, instruction[19:15], instruction[24:20], instruction[11:7], write_back, rd1, rd2);
-	mux2x1 aluMux(rd2, immediate, aluSrc, aluRd2);
-	aluControl aluCtrl(aluOperation, instruction[31:25], instruction[14:12], aluCtrlOp);
-	alu aluMain(rd1, aluRd2, aluCtrlOp, zero, alu_result);
-	dataMemory DM(clk, memRead, memWrite, alu_result, rd2, read_data);
-	mux2x1 wbMux(alu_result, read_data, memToReg, write_back);
-	control ctrl(instruction[6:0], branch, memRead, memToReg, aluOperation, memWrite, aluSrc, regWrite);
+
+	// visão alem do alcande de tudo
+	forwardingUnit  			forwarding();
+	hazardDetectionUnit			hazard();
+	clockDivider 				clkDiv(systemClock, clk);
+
 endmodule
