@@ -15,9 +15,9 @@ module forwarding_unit(
         else if(mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs1) forward_A = 2'b01;
         else forward_A = 2'b00;
 
-        if(ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2) forward_B = 2'b10;
-        else if(mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2) forward_B = 2'b01;
-        else forward_B = 2'b00;
+        if(ex_mem_wb && ex_mem_rd != 0 && ex_mem_rd == id_ex_rs2) forward_B = 2'b10; // The second ALU comes from the register file
+        else if(mem_wb_wb && mem_wb_rd != 0 && mem_wb_rd == id_ex_rs2) forward_B = 2'b01; // The second ALU operand is forwarded from the prior ALU result
+        else forward_B = 2'b00; // The second ALU operand is forwarded from data memory or an earlier ALU result
     end
 
 endmodule

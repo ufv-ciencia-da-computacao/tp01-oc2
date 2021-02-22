@@ -1,8 +1,10 @@
-module progCounter(	input clock,
-					input enable,
-					input reset,
-					input [63:0] next,
-					output reg [63:0] value);				
+module progCounter(	
+	input clock,
+	input reset,
+	input pc_write,
+	input [63:0] next,
+	output reg [63:0] value
+);				
 	
 	initial begin
 		value = 0;
@@ -10,7 +12,7 @@ module progCounter(	input clock,
 	
 	always@(posedge clock) begin
 		if(reset) value <= 0;
-		else if(enable) value <= next;
+		else if (pc_write) value <= next;
 	end
 							
 endmodule
