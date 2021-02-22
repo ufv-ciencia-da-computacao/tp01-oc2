@@ -1,4 +1,4 @@
-module hazard_detection_unit (
+module hazardDetectionUnit (
     input id_ex_memRead,
     input [4:0] id_ex_rd,
     input [4:0] if_id_rs1,

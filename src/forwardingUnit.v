@@ -1,4 +1,4 @@
-module forwarding_unit(
+module forwardingUnit(
     input [4:0] id_ex_rs1,
     input [4:0] id_ex_rs2,
     input [4:0] ex_mem_rd,

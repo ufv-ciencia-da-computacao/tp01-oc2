@@ -1,21 +1,28 @@
-module branch_prediction (
-    input clk,
-    input writeEnable,
-    input branch_taken,
+module branchPrediction (
+    input clock,
+    input isBranch,
+    input lastBranchTaken,
 
-    output wire prediction
+    output reg prediction
 );
-    
-    // two bit state
-    // state[1] = 1     => last prediction: taken
-    // state[1] = 0     => last prediction: not taken
+
     reg [1:0] state;
 
     initial begin
         state = 2'b00;
+        prediction = 1'b0;
+    end 
+
+    always @(state) begin
+        if(state == 2'b11) prediction = 1;
+        if(state == 2'b00) prediction = 0;
     end
 
-    assign prediction = state[1];
-
+    always @(posedge clock) begin
+        if(isBranch) begin
+            state[1] <= state[0];
+            state[0] <= lastBranchTaken;
+        end
+    end
 
 endmodule
