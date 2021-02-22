@@ -54,7 +54,7 @@ module id_ex_register (
             aluSRC_reg <= aluSRC;
             regWrite_reg <= regWrite;
         end
-        pc <= pc_reg;
+        pc_reg <= pc;
         rd1 <= rd1_in;
         rd2 <= rd2_in;
         rs1 <= if_id_rs1_in;
